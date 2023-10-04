@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -32,7 +33,6 @@ public class AdminController {
     public String addNewUsers(Model model){
         User user = new User();
         model.addAttribute("user",user);
-
         return "user-info";
     }
 //"/saveUser"
@@ -42,14 +42,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 //"/updateInfo"
-    @RequestMapping("/updateInfo")
+    @RequestMapping( "/updateInfo")
     public String updateUser(@RequestParam("usrId") Long id, Model model){
         User user  = userService.getUser(id);
         model.addAttribute("user", user);
-        return "user-info";
+        return "redirect:/admin";
     }
 //"/deleteUser"
-    @RequestMapping("/deleteUser")
+    @RequestMapping( "/deleteUser")
     public String deleteUser(@RequestParam("usrId")Long id){
     userService.deleteUser(id);
         return "redirect:/admin";
