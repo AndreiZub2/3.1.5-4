@@ -15,13 +15,11 @@
             <div class="row gx-5">
                 <div class="col-lg-11 me-auto">
                     <h5>
-                        <tr th:each="usr : ${user}">
-                            <td th:utext="${usr.lastname}">lastname</td>
-                        </tr>
+                        <span th:text="${users.getName()} "></span>
                         <span> with roles: </span>
-                        <tr th:each="usr : ${user}">
-                            <td th:utext="${usr.roles}">role</td>
-                        </tr>
+
+                        <span th:each= "roles:${users.getRoles()}"
+                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
                     </h5>
                 </div>
                 <div class="col-lg-1 ms-auto">
@@ -60,7 +58,7 @@
     </thead>
     <tbody>
 
-    <tr th:each="usr : ${user}">
+    <tr th:each="usr : ${users}">
         <td th:utext="${usr.id}">id</td>
         <td th:utext="${usr.name}">name</td>
         <td th:utext="${usr.lastname}">lastname</td>

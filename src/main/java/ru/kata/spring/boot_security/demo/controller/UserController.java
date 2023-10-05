@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {
         User user = userService.getNameUser(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("users", user);
         return "user";
     }
 }
