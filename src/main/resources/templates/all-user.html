@@ -104,73 +104,73 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title" th:id= "${'update' + usr.id}">Update User</h5>
 
-                                         Кнопка закрытия
+                                        <!-- Кнопка закрытия -->
                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label=""></button>
-                                        !!!!!!!!
-
                                     </div>
                                     <div class="modal-body">
                                        <div class="container">
                                             <div class="row ">
-                                                <form method="post" th:action="@{/updateInfo}" th:object="${user}">
+                                                <form th:method="PATCH"
+                                                      th:action="@{/{id}(id=${usr.getId()})}"
+                                                      th:object="${user}">
 
+                                                    <div class="mb-3">
+                                                        <label for="edit-id"><b>ID</b></label>
+                                                        <input class="form-control" type="text"
+                                                               id="edit-id"
+                                                               th:value="${usr.id}"
+                                                               th:name="id" disabled>
 
-                                                    <div class="form-group text-center">
-                                                        <label  for="id">
-                                                            <strong>Id</strong>
-                                                        </label>
-                                                        <input type="text" th:value="${usr.id}"  class="form-control"
-                                                               id="id">
-                                                    </div>
-                                                    <div class="form-group text-center" >
-                                                        <label for="name">
-                                                            <strong>Name</strong>
-                                                        </label>
-                                                        <input type="text" th:value="${usr.name}" class="form-control"
-                                                               id="name">
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group text-center">
-                                                        <label for="lastname">
-                                                            <strong>LastName</strong>
-                                                        </label>
-                                                        <input type="text" th:value="${usr.lastname}"  class="form-control"
-                                                               id="lastname" >
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group text-center">
-                                                        <label for="age">
-                                                           <strong>Age</strong>
-                                                        </label>
-                                                        <input type="text" th:value="${usr.age}"  class="form-control"
-                                                               id="age" >
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group text-center">
-                                                        <label for="role">
-                                                            <strong>Role</strong>
-                                                        </label>
-                                                        <input type="text" th:value="${usr.roles}"  class="form-control"
-                                                               id="role" >
                                                     </div>
 
+                                                    <div class="mb-3">
+                                                        <label for="edit-firstname"><b>First
+                                                            Name</b></label>
+                                                        <input class="form-control" type="text"
+                                                               id="edit-firstname"
+                                                               th:value="${usr.name}"
+                                                               th:name="name" required>
+
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="edit-lastname"><b>Last
+                                                            Name</b></label>
+                                                        <input class="form-control" type="text"
+                                                               id="edit-lastname"
+                                                               th:value="${usr.lastname}"
+                                                               th:name="lastname">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="edit-age"><b>Age</b></label>
+                                                        <input class="form-control" type="number"
+                                                               id="edit-age"
+                                                               th:value="${usr.age}"
+                                                               th:name="age">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-roles"><b>Password</b></label>
+                                                        <input class="form-control" type="text"
+                                                               id="edit-roles"
+                                                               th:value="${usr.roles}"
+                                                               th:name="roles">
+                                                    </div>
+
+
+
+                                                    <div class="modal-footer text-end">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+
+                                                        <input type="submit" class="btn btn-primary"
+                                                               value="Update"/>
+                                                    </div>
                                                 </form>
+
                                             </div>
                                        </div>
-                                        <br><br>-->
-                                        <!-- Кнопки update и close в модальном окне -->
-                                       <div class="modal-footer text-end">
-                                            <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                          <!-- <input type="submit" class="btn btn-primary"
-                                                   value="Edit"/>-->
-                                          <form th:action="@{/updateInfo}" method="get">
-                                                <input type="hidden" name="usrId" th:value="${usr.id}">
-                                                <button type="submit" class="btn btn-primary">Update</button>
-                                            </form>
-                                        </div>
-
-                                        <!-- !!!!! -->
                                     </div>
                                 </div>
 

@@ -49,6 +49,7 @@ public class UserDaoImpl implements UserDao {
 
 @Override
  public void updateUser( User user) {
+
   entityManager.merge(user);
  }
 
