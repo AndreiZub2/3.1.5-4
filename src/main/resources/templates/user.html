@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-          crossorigin="anonymous">
-    <title>User</title>
+<html lang="en" class="h-100"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <title>Page</title>
 </head>
+
 <body>
 <header>
     <div class="bs">
@@ -15,11 +19,11 @@
             <div class="row gx-5">
                 <div class="col-lg-11 me-auto">
                     <h5>
-                        <span th:text="${users.getName()} "></span>
+                      <!--  <span th:text="${user.getName()} "></span>
                         <span> with roles: </span>
 
-                        <span th:each= "roles:${users.getRoles()}"
-                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
+                        <span th:each= "roles:${user.getRoles()}"
+                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span> -->
                     </h5>
                 </div>
                 <div class="col-lg-1 ms-auto">
@@ -33,7 +37,7 @@
 </header>
 
 <div class="d-flex align-items-start">
-    <!--Создаем кнопку слева для получения информации о юзере-->
+ <!-- Создаем кнопку слева для получения информации о юзере -->
     <div class="col-2">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link active" id="v-pills-user-tab" data-bs-toggle="pill" data-bs-target="#v-pills-user" type="button" role="tab" aria-controls="v-pills-user" aria-selected="true">User</button>
@@ -45,31 +49,31 @@
         <h1>User information-page</h1>
 
         <div class="p-3 border bg-light">
-        <table class="table table-secondary table-striped table-hover caption-top table-bordered ">
-            <h5>About User</h5>
-            <thead class="table-light">
-    <tr>
-        <th class="col">Id</th>
-        <th class="col">Name</th>
-        <th class="col">Lastname</th>
-        <th class="col">Age</th>
-        <th class="col">Role</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr th:each="usr : ${users}">
-        <td th:utext="${usr.id}">id</td>
-        <td th:utext="${usr.name}">name</td>
-        <td th:utext="${usr.lastname}">lastname</td>
-        <td th:utext="${usr.age}">age</td>
-        <td th:utext="${usr.roles}">role</td>
-    </tr>
-    </tbody>
-        </table>
-        <br>
+            <table class="table table-secondary table-striped table-hover caption-top table-bordered ">
+                <h5>About User</h5>
+                <thead class="table-light">
+                <tr>
+                    <th class="col">Id</th>
+                    <th class="col">Name</th>
+                    <th class="col">Lastname</th>
+                    <th class="col">Age</th>
+                    <th class="col">Role</th>
+                </tr>
+                </thead>
+                <tbody id="basicTable"></tbody>
+            </table>
+            <br>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/user.js"></script>
+
+
 </body>
+
 </html>

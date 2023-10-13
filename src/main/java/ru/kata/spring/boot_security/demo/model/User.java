@@ -1,5 +1,8 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,11 +33,15 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String userPassword;
-
+    //@JsonIgnore
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private List<Role> roles;
 
     public User() {
@@ -154,6 +161,15 @@ public class User implements UserDetails {
                 ", lastname='" + lastname + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    public String getRolesToString() {
+        List<Role> list = getRoles().stream().toList();
+        StringBuilder str = new StringBuilder(list.get(0).toString());
+        if (list.size() == 2) {
+            str.append(" ").append(list.get(1).toString());
+        }
+        return String.valueOf(str);
     }
 
 
