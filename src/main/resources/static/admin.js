@@ -1,6 +1,5 @@
 const url = 'http://localhost:8091/api/users';
 
-
 function getAllUsers() {
     fetch(url)
         .then(res => res.json())
@@ -11,18 +10,20 @@ function getAllUsers() {
 
 function loadTable(listAllUsers) {
     let res = ``;
+
     for (let user of listAllUsers) {
         res +=
-            `<tr>
+            `<tr id="row" >
                 <td>${user.id}</td>
                 <td>${user.name}</td>
                 <td>${user.lastname}</td>
                 <td>${user.age}</td>
+                <td>${user.rolesToString}</td>
     
-                <td>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                   edit
-                                </button></td>
+               <td>
+                    <button id="button-edit" class="btn btn-sm btn-primary" type="button"
+                    data-bs-toggle="modal" href="#editModal"
+                    onclick="editModal(${user.id})">Edit</button></td>
                 <td>
                     <button class="btn btn-sm btn-danger" type="button"
                     data-bs-toggle="modal" data-bs-target="#deleteModal"
@@ -30,40 +31,33 @@ function loadTable(listAllUsers) {
             </tr>`
     }
     document.getElementById('tableBodyAdmin').innerHTML = res;
+
 }
 
 function newUserTab() {
     document.getElementById('newUserForm').addEventListener('submit', (e) => {
         e.preventDefault()
-        let role = document.getElementById('rolesNew')
-        let rolesAddUser = []
-        // for (let i = 0; i < role.options.length; i++) {
-        //     if (role.options[i].selected) {
-        //         rolesAddUser.push({id: role.options[i].value, name: 'ROLE_' + role.options[i].innerHTML})
-        //     }
-        // }
+
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-               // username: document.getElementById('usernameNew').value,
                 name: document.getElementById('nameNew').value,
                 lastname: document.getElementById('lastNameNew').value,
                 age: document.getElementById('ageNew').value,
                 password: document.getElementById('passwordNew').value,
-               // roles: rolesAddUser
+                roles: document.getElementById('rolesNew').value
             })
         })
             .then((response) => {
                 if (response.ok) {
-
-                  //  document.getElementById('usernameNew').value = '';
-                   document.getElementById('nameNew').value = '';
+                    document.getElementById('nameNew').value = '';
                     document.getElementById('lastNameNew').value = '';
                     document.getElementById('ageNew').value = '';
                     document.getElementById('passwordNew').value = '';
+                    document.getElementById('rolesNew').value = '';
                     document.getElementById('userTable-tab').click()
                     getAllUsers();
                 }
@@ -77,7 +71,7 @@ function closeModal() {
 
 
 function editModal(id) {
-    let editId = url + id;
+    let editId = `${url}/${id}`;
     fetch(editId, {
         headers: {
             'Accept': 'application/json',
@@ -86,11 +80,11 @@ function editModal(id) {
     }).then(res => {
         res.json().then(user => {
             document.getElementById('editId').value = user.id;
-            document.getElementById('editUsername').value = user.username;
             document.getElementById('editName').value = user.name;
-            document.getElementById('editLastName').value = user.lastName;
+            document.getElementById('editLastName').value = user.lastname;
             document.getElementById('editAge').value = user.age;
-            document.getElementById('editPassword').value = '';
+            document.getElementById('editPassword').value = user.password;
+            document.getElementById('editRole').value = user.rolesToString;
         })
     });
 
@@ -99,28 +93,20 @@ function editModal(id) {
 
 async function editUser() {
     let idValue = document.getElementById('editId').value;
-    let usernameValue = document.getElementById('editUsername').value;
     let nameValue = document.getElementById('editName').value;
     let lastNameValue = document.getElementById('editLastName').value;
     let ageValue = document.getElementById('editAge').value;
     let passwordValue = document.getElementById('editPassword').value;
-    let role = document.getElementById('editRole')
-    let listOfRole = []
-    for (let i = 0; i < role.options.length; i++) {
-        if (role.options[i].selected) {
-            listOfRole.push({id: role.options[i].value, name: 'ROLE_' + role.options[i].innerHTML})
-        }
-    }
+    let  role = document.getElementById('editRole').value;
     let user = {
         id: idValue,
-        userName: usernameValue,
         name: nameValue,
-        lastName: lastNameValue,
+        lastname: lastNameValue,
         age: ageValue,
         password: passwordValue,
-        roles: listOfRole
+        roles: role
     }
-    await fetch(url, {
+    await fetch(`${url}/${idValue}`, {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
@@ -134,7 +120,7 @@ async function editUser() {
 
 
 function deleteModal(id) {
-    let delId = url + id;
+    let delId = `${url}/${id}`;
     fetch(delId, {
         headers: {
             'Accept': 'application/json',
@@ -143,17 +129,17 @@ function deleteModal(id) {
     }).then(res => {
         res.json().then(user => {
             document.getElementById('deleteId').value = user.id;
-            document.getElementById('deleteUsername').value = user.name;
             document.getElementById('deleteName').value = user.name;
             document.getElementById('deleteLastName').value = user.lastname;
             document.getElementById('deleteAge').value = user.age;
+            document.getElementById('deleteRoles').value = user.rolesToString;
         })
     });
 }
 
 async function deleteUser() {
     const id = document.getElementById('deleteId').value
-    let urlDel = url + id;
+    let urlDel = `${url}/${id}`;
 
     let method = {
         method: 'DELETE',
@@ -167,28 +153,6 @@ async function deleteUser() {
     })
 
 }
-function getUserPage() {
-    let url2 = url + 'user'
-    fetch(url2).then(response => response.json()).then(user =>
-        getInformationAboutUser(user))
-}
-
-function getInformationAboutUser(user) {
-    // user.roles.map(r => {
-    //     if (r.name.replace('ROLE_', '') === 'ADMIN') {
-    //         getAllUsers()
-    //         newUserTab()
-    //     }
-
-    document.getElementById('userTableBody').innerHTML = `<tr>
-            <td>${user.id}</td>
-            <td>${user.name}</td>
-            <td>${user.lastname}</td>
-            <td>${user.age}</td>
-            <td>${user.roles.map(r => r.name.replace('ROLE_', '')).join(' ')}</td>
-        </tr>`;
-
-
-}
-
 getAllUsers()
+
+

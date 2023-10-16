@@ -21,7 +21,7 @@ public class ViewController {
 
     @GetMapping("/admin")
     public String printUsers(ModelMap model, Principal principal) {
-        model.addAttribute("userAuth", userService.getNameUser(principal.getName()));
+        model.addAttribute("userAdmin", userService.getNameUser(principal.getName()));
         return "all-user";
     }
 

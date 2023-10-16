@@ -2,7 +2,7 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -19,6 +19,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(name = "role")
     private String role;
+
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id"

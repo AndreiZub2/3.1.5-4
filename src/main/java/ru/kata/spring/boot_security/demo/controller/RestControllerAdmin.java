@@ -45,7 +45,7 @@ public class RestControllerAdmin {
         return user;
     }
 
-    @PutMapping("/users")
+    @PatchMapping("/users/{id}")
     public User updateUser(@RequestBody User user){
         userService.updateUser(user);
         return user;

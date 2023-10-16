@@ -12,6 +12,150 @@
 
 <body>
 <!-- Шапка -->
+<!-- Moдальное окно для удаления пользователя -->
+<div class="modal" id="deleteModal" tabindex="-1" role="dialog"
+     aria-labelledby="example1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="example1">Delete User</h5>
+
+                <!-- Кнопка закрытия -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label=""></button>
+                <!-- !!!!!!!!-->
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row ">
+                        <form  id="modalDelete">
+                            <div class="form-group text-center">
+                                <label  for="deleteId">
+                                    <strong>Id</strong>
+                                </label>
+                                <input type="text"  class="form-control"
+                                       id="deleteId">
+                            </div>
+                            <br>
+                            <div class="form-group text-center" >
+                                <label for="deleteName">
+                                    <strong>Name</strong>
+                                </label>
+                                <input type="text"  class="form-control"
+                                       id="deleteName">
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <label for="deleteLastName">
+                                    <strong>LastName</strong>
+                                </label>
+                                <input type="text"  class="form-control"
+                                       id="deleteLastName" >
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <label for="deleteAge">
+                                    <strong>Age</strong>
+                                </label>
+                                <input type="text"  class="form-control"
+                                       id="deleteAge" >
+                            </div>
+                            <br>
+                           <div class="form-group text-center">
+                                 <label for="deleteRoles">
+                                     <strong>Role</strong>
+                                 </label>
+                                 <input type="text"  class="form-control"
+                                        id="deleteRoles" >
+                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="deleteBtn"
+                        onclick="deleteUser();">Delete
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="closeDelete"
+                >Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Модальное окно для изменеия пользователя-->
+<div class="modal" id= "editModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Update User</h5>
+
+                <!-- Кнопка закрытия -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label=""></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row ">
+                        <form id="modalEdit">
+
+                            <div class="mb-3 text-center">
+                                <label for="editId"><b>ID</b></label>
+                                <input class="form-control" type="text"
+                                       id="editId" disabled>
+                            </div>
+
+                            <div class="mb-3 text-center">
+                                <label for="editName"><b>
+                                    Name</b></label>
+                                <input class="form-control" type="text"
+                                       id="editName" required>
+
+                            </div>
+
+                            <div class="mb-3 text-center">
+                                <label for="editLastName"><b>Last
+                                    Name</b></label>
+                                <input class="form-control" type="text"
+                                       id="editLastName">
+                            </div>
+
+                            <div class="mb-3 text-center">
+                                <label for="editAge"><b>Age</b></label>
+                                <input class="form-control" type="number"
+                                       id="editAge">
+                            </div>
+                            <div class="mb-3 text-center">
+                                   <label for="editPassword"><b>Password</b></label>
+                                   <input class="form-control" type="text"
+                                          id="editPassword">
+                               </div>
+                            <div class="mb-3 text-center">
+                                <label for="editRole"><b>Password</b></label>
+                                <input class="form-control" type="text"
+                                       id="editRole">
+                            </div>
+
+
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="editBtn"
+                                        onclick="editUser()">Edit
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        id="editClose">Close
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 <header>
     <div class="bs">
         <div class="container-fluid bg-dark text-white my-4">
@@ -55,19 +199,20 @@
         <h1>Admin panel</h1>
 
 
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <!--                                Вкладка User Table-->
-            <button class="nav-link active" id="nav-user-table-tab" data-bs-toggle="tab" data-bs-target="#nav-user-table" type="button" role="tab" aria-controls="nav-user-table" aria-selected="true">User Table</button>
-            <!--                                Вкладка New User-->
-            <button class="nav-link" id="nav-new-user-tab" data-bs-toggle="tab" data-bs-target="#nav-new-user" type="button" role="tab" aria-controls="nav-new-user" aria-selected="false">New User</button>
-        </div>
-
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true">Users Table</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="new-user-tab" data-bs-toggle="tab" data-bs-target="#new-user" type="button" role="tab" aria-controls="new-user" aria-selected="false">New User</button>
+            </li>
+        </ul>
 
 
 
         <div class="tab-content" id="nav-tabContent">
             <!--                            Здесь содержится информация для вкладки User Table-->
-            <div class="tab-pane fade show active" id="nav-user-table" role="tabpanel" aria-labelledby="nav-user-table-tab">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
 
                 <div class="p-3 border bg-light">
                     <table class="table table-secondary table-striped table-hover table-bordered">
@@ -83,200 +228,14 @@
                         </tr>
                         </thead>
 
-                        <tbody id="tableBodyAdmin">
-                        <!--<tr th:each="usr : ${allUsr}">
-                            <td th:utext="${usr.id}">id</td>
-                            <td th:utext="${usr.name}">name</td>
-                            <td th:utext="${usr.lastname}">lastname</td>
-                            <td th:utext="${usr.age}">age</td>
-                            <td th:utext="${usr.roles}">role</td>-->
+                        <tbody id="tableBodyAdmin"></tbody>
 
-                            <td>
-
-                                <!-- Кнопка-триггер модального окна -->
-                                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-
-                                </button>-->
-
-                                <!-- Модальное окно -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Заголовок модального окна</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ...
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                                <button type="button" class="btn btn-primary">Понял</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--Кнопка update в таблице юзера
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        th:data-bs-target="'#update' + ${userAuth.id}">Update</button>
-
-                                 Moдальное окно для изменения пользователя
-                      <div class="modal" id= "modal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" th:id= "${'update' + usr.id}">Update User</h5>
-
-                                                - Кнопка закрытия
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label=""></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="container">
-                                                    <div class="row ">
-                                                        <form id="modalEdit">
-
-                                                            <div class="mb-3 text-center">
-                                                                <label for="editId"><b>ID</b></label>
-                                                                <input class="form-control" type="text"
-                                                                       id="editId" disabled>
-                                                            </div>
-
-                                                            <div class="mb-3 text-center">
-                                                                <label for="editName"><b>
-                                                                    Name</b></label>
-                                                                <input class="form-control" type="text"
-                                                                       id="editName" required>
-
-                                                            </div>
-
-                                                            <div class="mb-3 text-center">
-                                                                <label for="editLastName"><b>Last
-                                                                    Name</b></label>
-                                                                <input class="form-control" type="text"
-                                                                       id="editLastName">
-                                                            </div>
-
-                                                            <div class="mb-3 text-center">
-                                                                <label for="editAge"><b>Age</b></label>
-                                                                <input class="form-control" type="number"
-                                                                       id="editAge"
-                                                                    >
-                                                            </div>
-                                                          <div class="mb-3 text-center">
-                                                                <label for="edit-roles"><b>Password</b></label>
-                                                                <input class="form-control" type="text"
-                                                                       id="edit-roles"
-                                                                       th:value="${usr.roles}"
-                                                                       th:name="roles">
-                                                            </div>
-
-
-
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary" id="editBtn"
-                                                                        onclick="editUser()">Edit
-                                                                </button>
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                                        id="editClose">Close
-                                                                </button>
-                                                            </div>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>-->
-                            </td>
-                            <td>
-                                <!-- Кнопка  delete в таблице юзера
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        th:data-bs-target="'#delete' + ${usr.id}">Delete</button> -->
-
-                                <!-- Moдальное окно для удаления пользователя -->
-                                <div class="modal" id="deleteModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="example1" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="example1">Delete User</h5>
-
-                                                <!-- Кнопка закрытия -->
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label=""></button>
-                                                <!-- !!!!!!!!-->
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="container">
-                                                    <div class="row ">
-                                                        <form  id="modalDelete">
-                                                            <div class="form-group text-center">
-                                                                <label  for="deleteId">
-                                                                    <strong>Id</strong>
-                                                                </label>
-                                                                <input type="text"  class="form-control"
-                                                                       id="deleteId">
-                                                            </div>
-                                                            <br>
-                                                            <div class="form-group text-center" >
-                                                                <label for="deleteName">
-                                                                    <strong>Name</strong>
-                                                                </label>
-                                                                <input type="text"  class="form-control"
-                                                                       id="deleteName">
-                                                            </div>
-                                                            <br>
-                                                            <div class="form-group text-center">
-                                                                <label for="deleteLastName">
-                                                                    <strong>LastName</strong>
-                                                                </label>
-                                                                <input type="text"  class="form-control"
-                                                                       id="deleteLastName" >
-                                                            </div>
-                                                            <br>
-                                                            <div class="form-group text-center">
-                                                                <label for="deleteAge">
-                                                                    <strong>Age</strong>
-                                                                </label>
-                                                                <input type="text"  class="form-control"
-                                                                       id="deleteAge" >
-                                                            </div>
-                                                            <br>
-                                                           <!-- <div class="form-group text-center">
-                                                                <label for="rolee">
-                                                                    <strong>Role</strong>
-                                                                </label>
-                                                                <input type="text" th:value="${usr.roles}" class="form-control"
-                                                                       id="rolee" >
-                                                            </div> -->
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" id="deleteBtn"
-                                                        onclick="deleteUser();">Delete
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                        id="closeDelete"
-                                                >Close
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
             <!-- Добавление нового пользователя -->
 
-            <div class="tab-pane fade" id="nav-new-user" role="tabpanel" aria-labelledby="nav-new-user-tab">
+           <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user-tab">
                 <div class="container px-0">
                     <div class="row gx-3">
                         <div class="col">
@@ -310,11 +269,11 @@
                                         <input type="text"  id="passwordNew"
                                                class="form-control" placeholder="Password required"/>
                                     </div>
-                                   <!-- <div class="mb-3">
+                                   <div class="mb-3">
                                         <label for="rolesNew" class="sr-only"><b>Role</b></label>
                                         <input type="text"  id="rolesNew"
                                                class="form-control" placeholder="ROLE_ROLE" required>
-                                    </div>-->
+                                    </div>
                                     <div class="d-grid gap-2">
                                         <button class="btn btn-success"  type="submit" onclick="newUserTab()">Add New User
                                         </button>
@@ -330,10 +289,12 @@
         </div>
     </div>
 </div>
-<script  src="/admin.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+
+<script  src="/admin.js"></script>
 
 </body>
 
