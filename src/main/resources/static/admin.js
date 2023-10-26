@@ -19,6 +19,7 @@ function loadTable(listAllUsers) {
                 <td>${user.lastname}</td>
                 <td>${user.age}</td>
                 <td>${user.rolesToString}</td>
+                
     
                <td>
                     <button id="button-edit" class="btn btn-sm btn-primary" type="button"
@@ -38,7 +39,7 @@ function newUserTab() {
     document.getElementById('newUserForm').addEventListener('submit', (e) => {
         e.preventDefault()
 
-        fetch(url, {
+        fetch('http://localhost:8091/api/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -47,8 +48,11 @@ function newUserTab() {
                 name: document.getElementById('nameNew').value,
                 lastname: document.getElementById('lastNameNew').value,
                 age: document.getElementById('ageNew').value,
-                password: document.getElementById('passwordNew').value,
-                roles: document.getElementById('rolesNew').value
+                userPassword: document.getElementById('passwordNew').value,
+                roles: document.getElementById('rolesNew').value.
+                split(' ').map(elem => ({role: elem, id: elem === 'ROLE_USER' ? 2 : 1, roles: [] }))
+
+
             })
         })
             .then((response) => {
@@ -58,12 +62,16 @@ function newUserTab() {
                     document.getElementById('ageNew').value = '';
                     document.getElementById('passwordNew').value = '';
                     document.getElementById('rolesNew').value = '';
-                    document.getElementById('userTable-tab').click()
+                   document.getElementById('users-tab').click()
+
                     getAllUsers();
+
                 }
             })
-     })
+    })
+
 }
+
 
 function closeModal() {
     document.querySelectorAll(".btn-close").forEach((btn) => btn.click())
@@ -75,15 +83,16 @@ function editModal(id) {
     fetch(editId, {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
+           'Content-Type': 'application/json;charset=UTF-8'
+
         }
     }).then(res => {
         res.json().then(user => {
-            document.getElementById('editId').value = user.id;
+           document.getElementById('editId').value = user.id;
             document.getElementById('editName').value = user.name;
             document.getElementById('editLastName').value = user.lastname;
             document.getElementById('editAge').value = user.age;
-            document.getElementById('editPassword').value = user.password;
+           document.getElementById('editPassword').value = user.userPassword;
             document.getElementById('editRole').value = user.rolesToString;
         })
     });
@@ -92,18 +101,21 @@ function editModal(id) {
 
 
 async function editUser() {
-    let idValue = document.getElementById('editId').value;
+   let idValue = document.getElementById('editId').value;
     let nameValue = document.getElementById('editName').value;
     let lastNameValue = document.getElementById('editLastName').value;
     let ageValue = document.getElementById('editAge').value;
     let passwordValue = document.getElementById('editPassword').value;
-    let  role = document.getElementById('editRole').value;
+    let  role = document.getElementById('editRole').value.
+    split(' ').map(elem => ({role: elem, id: elem === 'ROLE_USER' ? 2 : 1, roles: [] }))
+
+
     let user = {
         id: idValue,
         name: nameValue,
         lastname: lastNameValue,
         age: ageValue,
-        password: passwordValue,
+        userPassword: passwordValue,
         roles: role
     }
     await fetch(`${url}/${idValue}`, {
@@ -114,8 +126,10 @@ async function editUser() {
         },
         body: JSON.stringify(user)
     });
+
     closeModal()
-    getAllUsers()
+   getAllUsers()
+
 }
 
 
@@ -154,5 +168,7 @@ async function deleteUser() {
 
 }
 getAllUsers()
+
+
 
 

@@ -25,10 +25,9 @@ public class ViewController {
         return "all-user";
     }
 
-    @GetMapping("/api/user")
+    @GetMapping("/page/api/user")
     public String userPage(Model model, Principal principal) {
-        User user = userService.getNameUser(principal.getName());
-        model.addAttribute("user", user);
+        model.addAttribute("userUser", userService.getNameUser(principal.getName()));
         return "user";
     }
 }

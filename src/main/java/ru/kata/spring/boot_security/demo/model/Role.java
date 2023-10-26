@@ -19,7 +19,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(name = "role")
     private String role;
-
+    @Transient
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id"

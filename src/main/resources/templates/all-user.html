@@ -122,7 +122,7 @@
 
                             <div class="mb-3 text-center">
                                 <label for="editAge"><b>Age</b></label>
-                                <input class="form-control" type="number"
+                                <input class="form-control" type="text"
                                        id="editAge">
                             </div>
                             <div class="mb-3 text-center">
@@ -131,7 +131,7 @@
                                           id="editPassword">
                                </div>
                             <div class="mb-3 text-center">
-                                <label for="editRole"><b>Password</b></label>
+                                <label for="editRole"><b>Role</b></label>
                                 <input class="form-control" type="text"
                                        id="editRole">
                             </div>
@@ -162,11 +162,11 @@
             <div class="row gx-5">
                 <div class="col-lg-11 me-auto">
                     <h5>
-                      <!--  <span th:text="${userAuth.getName()} "></span>
+                        <span th:text="${userAdmin.getName()} "></span>
                         <span> with roles: </span>
 
-                        <span th:each= "roles:${user.getRoles()}"
-                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>-->
+                        <span th:each= "roles:${userAdmin.getRoles()}"
+                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
                     </h5>
                 </div>
                 <div class="col-lg-1 ms-auto">
@@ -187,7 +187,7 @@
     <div class="col-2">
         <div class="nav flex-column nav-pills me-3" >
             <a href="/admin" type="button" class="btn btn-primary btn-lg nav-link active">Admin</a>
-            <a href="/user" type="button" class="btn btn-primary btn-lg nav-link" >User</a>
+            <a href="/page/api/user" type="button" class="btn btn-primary btn-lg nav-link" >User</a>
         </div>
     </div>
 
@@ -201,7 +201,8 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true">Users Table</button>
+                <button class="nav-link active" id="users-tab"
+                        data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true">Users Table</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="new-user-tab" data-bs-toggle="tab" data-bs-target="#new-user" type="button" role="tab" aria-controls="new-user" aria-selected="false">New User</button>
@@ -275,8 +276,11 @@
                                                class="form-control" placeholder="ROLE_ROLE" required>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-success"  type="submit" onclick="newUserTab()">Add New User
+                                       <button class="btn btn-success"  type="submit" onclick="newUserTab()">Add New User
                                         </button>
+
+
+
                                     </div>
                                 </form>
                             </div>

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -19,11 +17,12 @@
             <div class="row gx-5">
                 <div class="col-lg-11 me-auto">
                     <h5>
-                      <!--  <span th:text="${user.getName()} "></span>
+
+                       <span th:text="${userUser.getName()} "></span>
                         <span> with roles: </span>
 
-                        <span th:each= "roles:${user.getRoles()}"
-                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span> -->
+                        <span th:each= "roles:${userUser.getRoles()}"
+                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
                     </h5>
                 </div>
                 <div class="col-lg-1 ms-auto">
@@ -68,9 +67,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!--<script src="webjars/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="/user.js"></script>
 
 

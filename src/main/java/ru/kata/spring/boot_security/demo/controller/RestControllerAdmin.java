@@ -1,14 +1,12 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-
-
-
 import org.springframework.web.bind.annotation.*;
 
 
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.NoUserException;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
 
 
 import java.util.List;
@@ -46,7 +44,8 @@ public class RestControllerAdmin {
     }
 
     @PatchMapping("/users/{id}")
-    public User updateUser(@RequestBody User user){
+    public User updateUser(@PathVariable Long id, @RequestBody User user){
+        userService.getUser(id);
         userService.updateUser(user);
         return user;
     }
@@ -60,10 +59,4 @@ public class RestControllerAdmin {
     userService.deleteUser(id);
     return "User ID = " + id + " deleted";
     }
-
-
-
-
-
-
 }
