@@ -24,11 +24,11 @@ function loadTable(listAllUsers) {
                <td>
                     <button id="button-edit" class="btn btn-sm btn-primary" type="button"
                     data-bs-toggle="modal" href="#editModal"
-                    onclick="editModal(${user.id})">Edit</button></td>
+                    onclick="editModal(${user.id})">Изменить</button></td>
                 <td>
                     <button class="btn btn-sm btn-danger" type="button"
                     data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    onclick="deleteModal(${user.id})">Delete</button></td>
+                    onclick="deleteModal(${user.id})">Удалить</button></td>
             </tr>`
     }
     document.getElementById('tableBodyAdmin').innerHTML = res;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 
 <head>
     <meta charset="utf-8">
@@ -19,7 +19,7 @@
                     <h5>
 
                        <span th:text="${userUser.getName()} "></span>
-                        <span> with roles: </span>
+                        <span lang="ru"> с ролью: </span>
 
                         <span th:each= "roles:${userUser.getRoles()}"
                               th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-lg-1 ms-auto">
                     <form th:action="@{/logout}" method="get">
-                        <button type="submit" class="btn bg-dark text-secondary">Logout</button>
+                        <button type="submit" class="btn bg-dark text-secondary">Выход</button>
                     </form>
                 </div>
             </div>
@@ -39,24 +39,24 @@
  <!-- Создаем кнопку слева для получения информации о юзере -->
     <div class="col-2">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <button class="nav-link active" id="v-pills-user-tab" data-bs-toggle="pill" data-bs-target="#v-pills-user" type="button" role="tab" aria-controls="v-pills-user" aria-selected="true">User</button>
+            <button class="nav-link active" id="v-pills-user-tab" data-bs-toggle="pill" data-bs-target="#v-pills-user" type="button" role="tab" aria-controls="v-pills-user" aria-selected="true">Пользователь</button>
         </div>
     </div>
 
     <div class="container-fluid">
 
-        <h1>User information-page</h1>
+        <h1 >Общая информация о пользователе </h1>
 
         <div class="p-3 border bg-light">
             <table class="table table-secondary table-striped table-hover caption-top table-bordered ">
-                <h5>About User</h5>
+                <h5>О пользователе </h5>
                 <thead class="table-light">
                 <tr>
                     <th class="col">Id</th>
-                    <th class="col">Name</th>
-                    <th class="col">Lastname</th>
-                    <th class="col">Age</th>
-                    <th class="col">Role</th>
+                    <th class="col">Имя</th>
+                    <th class="col">Фамилия</th>
+                    <th class="col">Возраст</th>
+                    <th class="col">Роль</th>
                 </tr>
                 </thead>
                 <tbody id="basicTable"></tbody>
@@ -68,10 +68,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!--<script src="webjars/jquery/3.3.1/jquery.min.js"></script> -->
+
 <script src="/user.js"></script>
-
-
 </body>
-
 </html>

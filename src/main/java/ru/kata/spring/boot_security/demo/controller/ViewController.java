@@ -4,8 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.model.User;
+
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
@@ -19,6 +18,12 @@ public class ViewController {
         this.userService = userService;
     }
 
+//    @GetMapping("/login")
+//    public String login(){
+//        return "login";
+//    }
+
+
     @GetMapping("/admin")
     public String printUsers(ModelMap model, Principal principal) {
         model.addAttribute("userAdmin", userService.getNameUser(principal.getName()));
@@ -30,4 +35,5 @@ public class ViewController {
         model.addAttribute("userUser", userService.getNameUser(principal.getName()));
         return "user";
     }
+
 }
