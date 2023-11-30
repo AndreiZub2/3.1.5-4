@@ -15,16 +15,6 @@
     <div class="bs">
         <div class="container-fluid bg-dark text-white my-4" >
             <div class="row gx-5">
-                <div class="col-lg-11 me-auto">
-                    <h5>
-
-                       <span th:text="${userUser.getName()} "></span>
-                        <span lang="ru"> с ролью: </span>
-
-                        <span th:each= "roles:${userUser.getRoles()}"
-                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
-                    </h5>
-                </div>
                 <div class="col-lg-1 ms-auto">
                     <form th:action="@{/logout}" method="get">
                         <button type="submit" class="btn bg-dark text-secondary">Выход</button>

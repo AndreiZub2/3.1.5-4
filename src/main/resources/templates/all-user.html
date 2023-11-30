@@ -16,15 +16,6 @@
     <div class="bs">
         <div class="container-fluid bg-dark text-white my-4">
             <div class="row gx-5">
-                <div class="col-lg-11 me-auto">
-                    <h5>
-                        <span th:text="${userAdmin.getName()} "></span>
-                        <span> с ролью: </span>
-
-                        <span th:each= "roles:${userAdmin.getRoles()}"
-                              th:text="${roles.getRole().replace('ROLE_','')}+'  '"></span>
-                    </h5>
-                </div>
                 <div class="col-lg-1 ms-auto">
                     <form th:action="@{/logout}" method="get">
                         <button type="submit" class="btn bg-dark text-secondary">Выход</button>
@@ -123,8 +114,10 @@
                                     </div>
                                    <div class="mb-3">
                                         <label for="rolesNew" class="sr-only"><b>Роль</b></label>
-                                        <input type="text"  id="rolesNew"
-                                               class="form-control" placeholder="ROLE_ROLE" required>
+                                       <select class="form-select" aria-label="Multiple select example" id="rolesNew">
+                                       </select>
+<!--                                        <input type="text"  id="rolesNew"-->
+<!--                                               class="form-control" placeholder="ROLE_ROLE" required>-->
                                     </div>
                                     <div class="d-grid gap-2">
                                        <button class="btn btn-success"  type="submit" onclick="newUserTab()">Добавить</button>
@@ -187,9 +180,8 @@
                                        id="editPassword">
                             </div>
                             <div class="mb-3 text-center">
-                                <label for="editRole"><b>Роль</b></label>
-                                <input class="form-control" type="text"
-                                       id="editRole">
+                                <select class="form-select" aria-label="Multiple select example" id="editRole">
+                                </select>
                             </div>
 
 

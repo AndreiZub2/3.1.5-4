@@ -2,10 +2,13 @@ package ru.kata.spring.boot_security.demo.service;
 
 
 
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -14,8 +17,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 @Service
-@EnableTransactionManagement(proxyTargetClass = true)
-public class UserServiceImpl  implements UserService {
+public class UserServiceImpl implements UserService {
 
 
     private final UserDao userDao;
@@ -25,9 +27,8 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    @Transactional
     public List<User> getUserList() {
-       return userDao.getUserList();
+        return userDao.getUserList();
     }
 
     @Override
@@ -42,14 +43,13 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    @Transactional
     public User getUser(Long id) {
-       return userDao.getUser(id);
+        return userDao.getUser(id);
     }
 
     @Override
     @Transactional
-    public void updateUser( User user) {
+    public void updateUser(User user) {
         userDao.updateUser(user);
     }
 
@@ -60,16 +60,19 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    @Transactional
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userDao.getNameUser(username);
-        if (user == null){
-            throw new UsernameNotFoundException(String.format("User %s not found",username));
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
-        return user; /* new  org.springframework.security.core.userDetails.User( user.getUsername(),user.getPassword(),
-                user.isAccountNonExpired(), user.isCredentialsNonExpired(),
-                user.isEnabled(), user.isAccountNonLocked(),
-                user.getRoles());*/
+        return user;
     }
+
+
 
 }

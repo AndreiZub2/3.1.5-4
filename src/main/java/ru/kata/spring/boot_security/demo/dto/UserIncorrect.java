@@ -1,5 +1,4 @@
-package ru.kata.spring.boot_security.demo.service;
-
+package ru.kata.spring.boot_security.demo.dto;
 
 
 public class UserIncorrect {

@@ -1,4 +1,5 @@
 const url = 'http://localhost:8091/api/users';
+let userRoles = [];
 
 function getAllUsers() {
     fetch(url)
@@ -6,6 +7,26 @@ function getAllUsers() {
         .then(data => {
             loadTable(data)
         })
+}
+
+function getAllRoles() {
+    fetch(`${url}/role`)
+        .then(res => res.json())
+        .then(data => {
+            loadRole(data);
+            userRoles = data;
+        })
+}
+
+function loadRole(listAllRoles) {
+    let res = ``;
+
+    for (let role of listAllRoles) {
+        res +=
+            `<option value=${role.id}>${role.role}</option>`
+    }
+    document.getElementById('rolesNew').innerHTML = res;
+
 }
 
 function loadTable(listAllUsers) {
@@ -36,6 +57,7 @@ function loadTable(listAllUsers) {
 }
 
 function newUserTab() {
+    document.getElementById('rolesNew').value
     document.getElementById('newUserForm').addEventListener('submit', (e) => {
         e.preventDefault()
 
@@ -49,8 +71,8 @@ function newUserTab() {
                 lastname: document.getElementById('lastNameNew').value,
                 age: document.getElementById('ageNew').value,
                 userPassword: document.getElementById('passwordNew').value,
-                roles: document.getElementById('rolesNew').value.
-                split(' ').map(elem => ({role: elem, id: elem === 'ROLE_USER' ? 2 : 1, roles: [] }))
+                 roles: userRoles.filter(elem => elem.id === Number(document.getElementById('rolesNew').value)),
+
 
 
             })
@@ -93,7 +115,15 @@ function editModal(id) {
             document.getElementById('editLastName').value = user.lastname;
             document.getElementById('editAge').value = user.age;
            document.getElementById('editPassword').value = user.userPassword;
-            document.getElementById('editRole').value = user.rolesToString;
+            let res = ``;
+
+            for (let role of userRoles) {
+                res += user.roles[0].id === role.id ?
+
+                    `<option value=${role.id} selected>${role.role}</option>`
+                    : `<option value=${role.id}>${role.role}</option>`
+            }
+            document.getElementById('editRole').innerHTML = res;
         })
     });
 
@@ -106,8 +136,7 @@ async function editUser() {
     let lastNameValue = document.getElementById('editLastName').value;
     let ageValue = document.getElementById('editAge').value;
     let passwordValue = document.getElementById('editPassword').value;
-    let  role = document.getElementById('editRole').value.
-    split(' ').map(elem => ({role: elem, id: elem === 'ROLE_USER' ? 2 : 1, roles: [] }))
+    let role = userRoles.filter(elem => elem.id === Number(document.getElementById('editRole').value));
 
 
     let user = {
@@ -167,7 +196,8 @@ async function deleteUser() {
     })
 
 }
-getAllUsers()
+getAllUsers();
+getAllRoles();
 
 
 

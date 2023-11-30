@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kata.spring.boot_security.demo.exceptions.NoUserException;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.NoUserException;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
@@ -27,7 +27,7 @@ public class RestControllerUser {
     @GetMapping()
     public User showUser(Principal principal) {
         User user = userService.getNameUser(principal.getName());
-        if(user ==null){
+        if (user == null) {
             throw new NoUserException("User not found");
         }
         return user;

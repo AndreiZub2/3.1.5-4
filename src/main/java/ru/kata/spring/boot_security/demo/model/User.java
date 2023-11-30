@@ -3,35 +3,36 @@ package ru.kata.spring.boot_security.demo.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 
 @Entity
-@Table( name =  "users")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
-    private  Long id;
+    @Column(name = "id")
+    private Long id;
 
-    @Column (name = "name")
+    @Column(name = "name",
+            nullable = false,
+            unique = true)
     private String name;
 
-    @Column (name = "lastname")
+    @Column(name = "lastname")
     private String lastname;
 
-    @Column (name = "age")
+    @Column(name = "age")
     private Byte age;
-
-
-
 
 
     @Column(name = "password")
@@ -40,16 +41,16 @@ public class User implements UserDetails {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-
     private List<Role> roles;
 
     public User() {
 
     }
+
     public User(Long id, String name, String lastname, Byte age, String userPassword, List<Role> roles) {
         this.id = id;
         this.name = name;
@@ -140,7 +141,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 
     @Override

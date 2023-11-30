@@ -10,12 +10,11 @@ import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
 
-public interface UserDao  {
-
-
+public interface UserDao {
 
     List<User> getUserList();
-   User getNameUser(String username);
+
+    User getNameUser(String username);
 
     void saveUser(User user);
 

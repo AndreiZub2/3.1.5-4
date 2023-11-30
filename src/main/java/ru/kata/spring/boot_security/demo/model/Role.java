@@ -17,17 +17,17 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "role")
+
+    @Column(name = "role",
+            unique = true)
     private String role;
+
     @Transient
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id"
-    )
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "users_id"))
+            property = "id")
+    @ManyToMany(mappedBy = "roles",
+            cascade = CascadeType.MERGE)
     private List<User> users;
 
     public Role(String role) {
@@ -63,7 +63,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return  getRole();
+        return getRole();
     }
 
     @Override
