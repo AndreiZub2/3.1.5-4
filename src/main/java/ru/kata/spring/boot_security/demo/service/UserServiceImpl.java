@@ -3,9 +3,10 @@ package ru.kata.spring.boot_security.demo.service;
 
 
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,10 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserDao userDao;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, @Lazy PasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDao = userDao;
     }
 
@@ -34,6 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+        user.setUserPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
     }
 
@@ -50,6 +54,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(User user) {
+        if (!(user.getPassword().equals(userDao.getUser(user.getId()).getPassword()))) {
+            user.setUserPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
         userDao.updateUser(user);
     }
 
@@ -57,11 +64,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Long id) {
         userDao.deleteUser(id);
-    }
-
-    @Override
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Override

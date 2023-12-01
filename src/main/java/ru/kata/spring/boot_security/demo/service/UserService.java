@@ -23,7 +23,4 @@ public interface UserService extends UserDetailsService {
     void updateUser(User user);
 
     void deleteUser(Long id);
-
-    PasswordEncoder passwordEncoder();
-
 }

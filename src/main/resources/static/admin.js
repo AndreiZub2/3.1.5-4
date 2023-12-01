@@ -41,8 +41,7 @@ function loadTable(listAllUsers) {
                 <td>${user.age}</td>
                 <td>${user.rolesToString}</td>
                 
-    
-               <td>
+                <td>
                     <button id="button-edit" class="btn btn-sm btn-primary" type="button"
                     data-bs-toggle="modal" href="#editModal"
                     onclick="editModal(${user.id})">Изменить</button></td>

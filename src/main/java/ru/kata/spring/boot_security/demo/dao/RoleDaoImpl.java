@@ -13,7 +13,7 @@ public class RoleDaoImpl implements RoleDao {
 
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
 
     @Override

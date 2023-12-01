@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +39,6 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String userPassword;
-    //@JsonIgnore
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
@@ -168,12 +169,9 @@ public class User implements UserDetails {
 
     public String getRolesToString() {
         List<Role> list = getRoles().stream().toList();
-        StringBuilder str = new StringBuilder(list.get(0).toString());
-        if (list.size() == 2) {
-            str.append(" ").append(list.get(1).toString());
+        for (Role role : list) {
+            System.out.println(role);
         }
-        return String.valueOf(str);
+        return String.valueOf(list);
     }
-
-
 }
