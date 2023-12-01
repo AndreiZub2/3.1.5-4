@@ -1,4 +1,4 @@
-const url = 'http://localhost:8091/api/users';
+const url = 'http://localhost:8091/api/admin';
 let userRoles = [];
 
 function getAllUsers() {
@@ -60,7 +60,7 @@ function newUserTab() {
     document.getElementById('newUserForm').addEventListener('submit', (e) => {
         e.preventDefault()
 
-        fetch('http://localhost:8091/api/users', {
+        fetch('http://localhost:8091/api/admin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

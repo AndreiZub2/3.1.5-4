@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class RestControllerAdmin {
 
 
@@ -28,17 +28,17 @@ public class RestControllerAdmin {
         this.roleService = roleService;
     }
 
-    @GetMapping()
+    @GetMapping("/admin")
     public List<User> allUser() {
         return userService.getUserList();
     }
 
-    @GetMapping("/role")
+    @GetMapping("/admin/role")
     public List<Role> allRoles() {
         return roleService.allRoles();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/admin/{id}")
     public User getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
         if (user == null) {
@@ -47,19 +47,19 @@ public class RestControllerAdmin {
         return user;
     }
 
-    @PostMapping()
+    @PostMapping("/admin")
     public User addUser(@RequestBody User user) {
         userService.saveUser(user);
         return user;
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/admin/{id}")
     public User updateUser(@RequestBody User user) {
         userService.updateUser(user);
         return user;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public String deleteUser(@PathVariable Long id) {
         User user = userService.getUser(id);
         if (user == null) {

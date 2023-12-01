@@ -8,9 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -168,10 +166,7 @@ public class User implements UserDetails {
     }
 
     public String getRolesToString() {
-        List<Role> list = getRoles().stream().toList();
-        for (Role role : list) {
-            System.out.println(role);
-        }
+        List<Role> list = getRoles();
         return String.valueOf(list);
     }
 }
